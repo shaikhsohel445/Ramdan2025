@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ramadan Calendar 2025 - Parbhani</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        table {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #27ae60;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        button {
+            padding: 5px 10px;
+            background: #27ae60;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ramadan Calendar 2025 - Parbhani</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Day</th>
+                <th>Sehri</th>
+                <th>Iftar</th>
+                <th>Date</th>
+                <th>Reminder</th>
+            </tr>
+        </thead>
+        <tbody id="calendar-body"></tbody>
+    </table>
+    <script>
+        const data = [
+            ...Array.from({ length: 30 }, (_, i) => ({
+                day: i + 1,
+                sehri: new Date(2025, 2, i + 2, 5, 28 - i).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }),
+                iftar: new Date(2025, 2, i + 2, 18, 30 + (i >= 4 ? 1 : 0)).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }),
+                date: new Date(2025, 2, i + 2).toISOString().split('T')[0]
+            }))
+        ];
+
+        const tableBody = document.getElementById("calendar-body");
+
+        data.forEach((entry) => {
+            let row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${entry.day}</td>
+                <td>${entry.sehri}</td>
+                <td>${entry.iftar}</td>
+                <td>${entry.date}</td>
+                <td>
+                    <button onclick="addToCalendar('${entry.date}', '${entry.sehri}', 'Sehri')">Sehri</button>
+                    <button onclick="addToCalendar('${entry.date}', '${entry.iftar}', 'Iftar')">Iftar</button>
+                </td>
+            `;
+            tableBody.appendChild(row);
+        });
+
+        function addToCalendar(date, time, type) {
+            const dateTime = new Date(`${date}T${time.replace(" AM", "").replace(" PM", "").replace(/:/g, ""):00").toISOString();
+            const eventTitle = `${type} Time - Ramadan`;
+            const calendarUrl = `https://www.google.com/calendar/render?action=TEMPLATE&text=${eventTitle}&dates=${dateTime}/${dateTime}`;
+            window.open(calendarUrl, '_blank');
+        }
+    </script>
+</body>
+</html>
