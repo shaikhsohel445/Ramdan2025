@@ -36,14 +36,6 @@
         tr:nth-child(even) {
             background-color: #f9f9f9;
         }
-        button {
-            padding: 5px 10px;
-            background: #27ae60;
-            color: white;
-            border: none;
-            cursor: pointer;
-            margin-top: 10px;
-        }
     </style>
 </head>
 <body>
@@ -55,44 +47,50 @@
                 <th>Sehri</th>
                 <th>Iftar</th>
                 <th>Date</th>
-                <th>Reminder</th>
             </tr>
         </thead>
         <tbody id="calendar-body"></tbody>
     </table>
     <script>
         const data = [
-            ...Array.from({ length: 30 }, (_, i) => ({
-                day: i + 1,
-                sehri: new Date(2025, 2, i + 2, 5, 28 - i).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }),
-                iftar: new Date(2025, 2, i + 2, 18, 30 + (i >= 4 ? 1 : 0)).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }),
-                date: new Date(2025, 2, i + 2).toISOString().split('T')[0]
-            }))
+            { day: 1, sehri: "05:28 AM", iftar: "6:30 PM", date: "02 Mar 2025" },
+            { day: 2, sehri: "05:27 AM", iftar: "6:30 PM", date: "03 Mar 2025" },
+            { day: 3, sehri: "05:26 AM", iftar: "6:30 PM", date: "04 Mar 2025" },
+            { day: 4, sehri: "05:25 AM", iftar: "6:31 PM", date: "05 Mar 2025" },
+            { day: 5, sehri: "05:25 AM", iftar: "6:31 PM", date: "06 Mar 2025" },
+            { day: 6, sehri: "05:24 AM", iftar: "6:31 PM", date: "07 Mar 2025" },
+            { day: 7, sehri: "05:23 AM", iftar: "6:32 PM", date: "08 Mar 2025" },
+            { day: 8, sehri: "05:22 AM", iftar: "6:32 PM", date: "09 Mar 2025" },
+            { day: 9, sehri: "05:22 AM", iftar: "6:32 PM", date: "10 Mar 2025" },
+            { day: 10, sehri: "05:21 AM", iftar: "6:32 PM", date: "11 Mar 2025" },
+            { day: 11, sehri: "05:20 AM", iftar: "6:33 PM", date: "12 Mar 2025" },
+            { day: 12, sehri: "05:19 AM", iftar: "6:33 PM", date: "13 Mar 2025" },
+            { day: 13, sehri: "05:18 AM", iftar: "6:33 PM", date: "14 Mar 2025" },
+            { day: 14, sehri: "05:18 AM", iftar: "6:34 PM", date: "15 Mar 2025" },
+            { day: 15, sehri: "05:17 AM", iftar: "6:34 PM", date: "16 Mar 2025" },
+            { day: 16, sehri: "05:16 AM", iftar: "6:34 PM", date: "17 Mar 2025" },
+            { day: 17, sehri: "05:15 AM", iftar: "6:34 PM", date: "18 Mar 2025" },
+            { day: 18, sehri: "05:14 AM", iftar: "6:35 PM", date: "19 Mar 2025" },
+            { day: 19, sehri: "05:13 AM", iftar: "6:35 PM", date: "20 Mar 2025" },
+            { day: 20, sehri: "05:12 AM", iftar: "6:35 PM", date: "21 Mar 2025" },
+            { day: 21, sehri: "05:11 AM", iftar: "6:35 PM", date: "22 Mar 2025" },
+            { day: 22, sehri: "05:11 AM", iftar: "6:36 PM", date: "23 Mar 2025" },
+            { day: 23, sehri: "05:10 AM", iftar: "6:36 PM", date: "24 Mar 2025" },
+            { day: 24, sehri: "05:09 AM", iftar: "6:36 PM", date: "25 Mar 2025" },
+            { day: 25, sehri: "05:08 AM", iftar: "6:36 PM", date: "26 Mar 2025" },
+            { day: 26, sehri: "05:07 AM", iftar: "6:37 PM", date: "27 Mar 2025" },
+            { day: 27, sehri: "05:06 AM", iftar: "6:37 PM", date: "28 Mar 2025" },
+            { day: 28, sehri: "05:05 AM", iftar: "6:37 PM", date: "29 Mar 2025" },
+            { day: 29, sehri: "05:04 AM", iftar: "6:37 PM", date: "30 Mar 2025" },
+            { day: 30, sehri: "05:03 AM", iftar: "6:38 PM", date: "31 Mar 2025" }
         ];
-
+        
         const tableBody = document.getElementById("calendar-body");
-
         data.forEach((entry) => {
             let row = document.createElement("tr");
-            row.innerHTML = `
-                <td>${entry.day}</td>
-                <td>${entry.sehri}</td>
-                <td>${entry.iftar}</td>
-                <td>${entry.date}</td>
-                <td>
-                    <button onclick="addToCalendar('${entry.date}', '${entry.sehri}', 'Sehri')">Sehri</button>
-                    <button onclick="addToCalendar('${entry.date}', '${entry.iftar}', 'Iftar')">Iftar</button>
-                </td>
-            `;
+            row.innerHTML = `<td>${entry.day}</td><td>${entry.sehri}</td><td>${entry.iftar}</td><td>${entry.date}</td>`;
             tableBody.appendChild(row);
         });
-
-        function addToCalendar(date, time, type) {
-            const dateTime = new Date(`${date}T${time.replace(" AM", "").replace(" PM", "").replace(/:/g, ""):00").toISOString();
-            const eventTitle = `${type} Time - Ramadan`;
-            const calendarUrl = `https://www.google.com/calendar/render?action=TEMPLATE&text=${eventTitle}&dates=${dateTime}/${dateTime}`;
-            window.open(calendarUrl, '_blank');
-        }
     </script>
 </body>
 </html>
